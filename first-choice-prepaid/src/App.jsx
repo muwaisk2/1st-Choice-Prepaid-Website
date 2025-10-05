@@ -11,7 +11,6 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import "./App.css";
-import Navbar from "./navbr"; // Sticky navbar
 import {
   animateHero,
   animateSections,
@@ -150,26 +149,8 @@ function App() {
       ].filter(Boolean)
     );
     animateArrow(".scroll-icon");
-
-    // Smooth scroll for navbar links using GSAP
-    const links = document.querySelectorAll(".navbar a");
-    links.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute("href").substring(1);
-        const targetEl = document.getElementById(targetId);
-        if (targetEl) {
-          gsap.to(window, {
-            duration: 1,
-            scrollTo: { y: targetEl.offsetTop - 70 }, // offset for navbar
-            ease: "power2.inOut",
-          });
-        }
-      });
-    });
   }, []);
 
-  // Scroll to contact and prefill subject using GSAP
   const handleBuyNow = (productName) => {
     setFormData({ ...formData, subject: `Purchase Inquiry for ${productName}` });
     if (contactRef.current) {
@@ -210,9 +191,6 @@ function App() {
 
   return (
     <div className="app" ref={appRef}>
-      {/* NAVBAR */}
-      <Navbar />
-
       {/* HERO */}
       <section className="hero-section" ref={heroRef} id="hero">
         <h1 className="title">Welcome to <strong>1st Choice Prepaid</strong></h1>
@@ -256,6 +234,16 @@ function App() {
               </button>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section className="services-section" ref={servicesRef} id="services">
+        <h2>Our Services</h2>
+        <div className="cards-container">
+          <div className="card"><FaBolt size={40} color="#00FFFF" /><h3>Prepaid Energy</h3><p>Reliable, fast, and secure prepaid energy solutions.</p></div>
+          <div className="card"><FaUsers size={40} color="#00FFFF" /><h3>Customer Support</h3><p>Seamless onboarding and ongoing assistance.</p></div>
+          <div className="card"><FaTools size={40} color="#00FFFF" /><h3>System Installation</h3><p>Professional installation of prepaid meters.</p></div>
         </div>
       </section>
 
@@ -305,15 +293,11 @@ function App() {
         </p>
       </section>
 
-      {/* SERVICES */}
-      <section className="services-section" ref={servicesRef} id="services">
-        <h2>Our Services</h2>
-        <div className="cards-container">
-          <div className="card"><FaBolt size={40} color="#00FFFF" /><h3>Prepaid Energy</h3><p>Reliable, fast, and secure prepaid energy solutions.</p></div>
-          <div className="card"><FaUsers size={40} color="#00FFFF" /><h3>Customer Support</h3><p>Seamless onboarding and ongoing assistance.</p></div>
-          <div className="card"><FaTools size={40} color="#00FFFF" /><h3>System Installation</h3><p>Professional installation of prepaid meters.</p></div>
-        </div>
-      </section>
+      {/* FOOTER */}
+      <footer className="footer-section">
+        <p>&copy; {new Date().getFullYear()} 1st Choice Prepaid. All rights reserved.</p>
+        <p>Designed with 💙 by 1st Choice Prepaid</p>
+      </footer>
     </div>
   );
 }
